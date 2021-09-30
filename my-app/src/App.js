@@ -83,13 +83,13 @@ class App extends React.Component {
     ];
     return (
       <div className="App">
-        <h1>Departures</h1>
+        <h1>North Station</h1>
         <h3>Current Time</h3>
         <div className="currentTime">
-          <Clock format={'MMMM Do YYYY, h:mm:ss a'} ticking={true} timezone={'US/Eastern'} />
+          <Clock format={'MMMM Do YYYY, h:mm:ss A'} ticking={true} timezone={'US/Eastern'} />
         </div>
         <div className="table">
-          <MaterialTable title="North Station" data={this.state.currentDepartures} columns={columns} options={{search: false, paging: false}} />
+          <MaterialTable title="Departures" data={this.state.currentDepartures} columns={columns} options={{search: false, paging: false}} />
         </div>
       </div>
     );
