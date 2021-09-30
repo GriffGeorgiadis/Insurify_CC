@@ -4,4 +4,10 @@
 .container {
   display: flex;
 }
+.currentTime {
+  margin: 20px 0 20px 0;
+}
+.table {
+  margin: 0 150px 0 150px;
+}
 

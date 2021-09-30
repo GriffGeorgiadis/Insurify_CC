@@ -1,6 +1,8 @@
 import React from 'react';
 import axios from 'axios';
 import moment from 'moment';
+import MaterialTable from 'material-table';
+import Clock from 'react-live-clock';
 import './App.css';
 
 class App extends React.Component {
@@ -50,7 +52,7 @@ class App extends React.Component {
         //Track the train will be one
         let stopId = predict.relationships.stop.data.id;
         let stopInfo = stops.find((stop) => stop.id === stopId);
-        predictObj.track = (stopInfo.attributes.platform_code ? stopInfo.attributes.platform_code : null);
+        predictObj.track = (stopInfo.attributes.platform_code ? stopInfo.attributes.platform_code : 'TBD');
 
         //Current Status of the train
         predictObj.status = predict.attributes.status;
@@ -72,32 +74,23 @@ class App extends React.Component {
 
 
   render() {
+    let columns = [
+      { title: 'Time', field: 'departureTime' },
+      { title: 'Destination', field: 'destination' },
+      { title: 'Train #', field: 'trainNum' },
+      { title: 'Track', field: 'track' },
+      { title: 'Status', field: 'status' },
+    ];
     return (
       <div className="App">
         <h1>Departures</h1>
         <h3>Current Time</h3>
-        <p>{ moment().format('MMMM Do YYYY, h:mm:ss a') }</p>
-        {this.state.currentDepartures.map((train, inde) => {
-            return(
-              <div className="container">
-                <div className="time">
-                  {train.departureTime}
-                </div>
-                <div className="destination">
-                  {train.destination}
-                </div>
-                <div className="train-num">
-                  {train.trainNum}
-                </div>
-                <div className="track">
-                  {train.track}
-                </div>
-                <div className="status">
-                  {train.status}
-                </div>
-              </div>
-            )
-          })}
+        <div className="currentTime">
+          <Clock format={'MMMM Do YYYY, h:mm:ss a'} ticking={true} timezone={'US/Eastern'} />
+        </div>
+        <div className="table">
+          <MaterialTable title="North Station" data={this.state.currentDepartures} columns={columns} options={{search: false, paging: false}} />
+        </div>
       </div>
     );
   }
